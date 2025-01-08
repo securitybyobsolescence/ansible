@@ -1,13 +1,12 @@
----
 - hosts: ios_routers
   gather_facts: false
   connection: local
 
   tasks:
-   - name: run show version on ios device
-     ios_command:
-       commands:
-         - show version
-       host: "{{ inventory_hostname }}"
-       username: cisco
-       password: cisco
+    - name: run show version on ios device
+      cisco.ios.ios_command:
+        commands:
+          - show version
+        host: "{{ inventory_hostname }}"
+        username: cisco
+        password: cisco
