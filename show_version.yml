@@ -1,6 +1,6 @@
-- hosts: ios_routers
+- hosts: switches
   gather_facts: false
-  connection: local
+  connection: network_cli
 
   tasks:
     - name: run show version on ios device
