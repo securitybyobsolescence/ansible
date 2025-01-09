@@ -1,0 +1,5 @@
+- hosts: localhost
+  tasks:
+    - name: Test debug
+      debug:
+        msg: "Execution Environment is working!"
