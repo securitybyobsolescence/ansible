@@ -2,5 +2,8 @@
   gather_facts: false
   connection: network_cli
   tasks:
+    - name: Map ansible_network_os for Cisco IOS
+      set_fact:
+        ansible_network_os: ios
     - name: Test network connection
       ping:
