@@ -1,16 +1,12 @@
 - hosts: switches
   gather_facts: false
-  connection: network_cli
-
+  connection: ansible.netcommon.network_cli
   tasks:
     - name: Check ansible_network_os
       debug:
         msg: "Network OS: {{ ansible_network_os }}"
 
-    - name: run show version on ios device
-      cisco.ios.ios_command:
+    - name: Run show version on IOS device
+      ios_command:
         commands:
           - show version
-        host: "{{ inventory_hostname }}"
-        username: cisco
-        password: cisco
