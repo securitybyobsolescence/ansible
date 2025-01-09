@@ -3,6 +3,10 @@
   connection: network_cli
 
   tasks:
+    - name: Check ansible_network_os
+      debug:
+        msg: "Network OS: {{ ansible_network_os }}"
+
     - name: run show version on ios device
       cisco.ios.ios_command:
         commands:
