@@ -1,0 +1,8 @@
+- name: Configure Cisco Switch
+  hosts: cisco_switches
+  vars:
+    ansible_ssh_common_args: '-o KexAlgorithms=+diffie-hellman-group14-sha1'
+  tasks:
+    - name: Execute show version
+      ansible.builtin.command:
+        cmd: show version
