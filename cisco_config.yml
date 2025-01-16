@@ -7,7 +7,13 @@
       ios_config:
         lines:
           - switchport mode trunk
-        parents: interface GigabitEthernet1/0/9
+        parents: interface gi0/9
+        provider:
+          host: "{{ inventory_hostname }}"
+          username: "{{ ansible_user }}"
+          password: "{{ ansible_password }}"
+          authorize: yes
+          auth_pass: "{{ ansible_enable_password }}"
 
     - name: Configure access ports on VLAN 25
       ios_config:
@@ -16,17 +22,29 @@
           - switchport access vlan 25
           - spanning-tree portfast
         with_items:
-          - GigabitEthernet1/0/1
-          - GigabitEthernet1/0/2
-          - GigabitEthernet1/0/3
-          - GigabitEthernet1/0/4
-          - GigabitEthernet1/0/5
-          - GigabitEthernet1/0/6
-          - GigabitEthernet1/0/7
-          - GigabitEthernet1/0/8
+          - gi0/1
+          - gi0/2
+          - gi0/3
+          - gi0/4
+          - gi0/5
+          - gi0/6
+          - gi0/7
+          - gi0/8
         parents: "interface {{ item }}"
+        provider:
+          host: "{{ inventory_hostname }}"
+          username: "{{ ansible_user }}"
+          password: "{{ ansible_password }}"
+          authorize: yes
+          auth_pass: "{{ ansible_enable_password }}"
 
     - name: Save configuration
       ios_config:
         lines:
           - do write memory
+        provider:
+          host: "{{ inventory_hostname }}"
+          username: "{{ ansible_user }}"
+          password: "{{ ansible_password }}"
+          authorize: yes
+          auth_pass: "{{ ansible_enable_password }}"
