@@ -4,11 +4,12 @@
   gather_facts: no
   connection: ansible.netcommon.network_cli
   tasks:
-    - name: Configure trunk on port 10
+    - name: Configure trunk on port 9
       ios_config:
         lines:
           - switchport mode trunk
-        parents: interface gi0/10
+        parents: interface gi0/9
+      register: trunk_result
 
     - name: Configure access ports on VLAN 25
       ios_config:
@@ -16,18 +17,23 @@
           - switchport mode access
           - switchport access vlan 25
           - spanning-tree portfast
+        loop:
+          - gi0/1
+          - gi0/2
+          - gi0/3
+          - gi0/4
+          - gi0/5
+          - gi0/6
+          - gi0/7
+          - gi0/8
         parents: "interface {{ item }}"
-      loop:
-        - gi0/1
-        - gi0/2
-        - gi0/3
-        - gi0/4
-        - gi0/5
-        - gi0/6
-        - gi0/7
-        - gi0/8
+      register: access_ports_result
 
-    - name: Save configuration
-      ios_config:
-        lines:
-          - do write memory
+    - name: Save playbook results to file
+      copy:
+        dest: /tmp/playbook_results.json
+        content: |
+          {
+            "trunk_result": {{ trunk_result }},
+            "access_ports_result": {{ access_ports_result }}
+          }
