@@ -2,6 +2,7 @@
 - name: Configure Cisco C3750-CX Switch
   hosts: cisco_switch
   gather_facts: no
+  connection: ansible.netcommon.network_cli
   tasks:
     - name: Configure trunk on port 10
       ios_config:
