@@ -8,7 +8,7 @@
       ios_config:
         lines:
           - switchport mode trunk
-        parents: interface gi0/9
+        parents: interface gi0/10
 
     - name: Configure access ports on VLAN 25
       ios_config:
