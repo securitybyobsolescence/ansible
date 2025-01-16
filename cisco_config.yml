@@ -3,11 +3,11 @@
   hosts: cisco_switch
   gather_facts: no
   tasks:
-    - name: Configure trunk on port 9
+    - name: Configure trunk on port 10
       ios_config:
         lines:
           - switchport mode trunk
-        parents: interface gi0/9
+        parents: interface gi0/10
 
     - name: Configure access ports on VLAN 25
       ios_config:
