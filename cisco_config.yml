@@ -1,0 +1,32 @@
+---
+- name: Configure Cisco C3750-CX Switch
+  hosts: cisco_switch
+  gather_facts: no
+  tasks:
+    - name: Configure trunk on port 9
+      ios_config:
+        lines:
+          - switchport mode trunk
+        parents: interface GigabitEthernet1/0/9
+
+    - name: Configure access ports on VLAN 25
+      ios_config:
+        lines:
+          - switchport mode access
+          - switchport access vlan 25
+          - spanning-tree portfast
+        with_items:
+          - GigabitEthernet1/0/1
+          - GigabitEthernet1/0/2
+          - GigabitEthernet1/0/3
+          - GigabitEthernet1/0/4
+          - GigabitEthernet1/0/5
+          - GigabitEthernet1/0/6
+          - GigabitEthernet1/0/7
+          - GigabitEthernet1/0/8
+        parents: "interface {{ item }}"
+
+    - name: Save configuration
+      ios_config:
+        lines:
+          - do write memory
