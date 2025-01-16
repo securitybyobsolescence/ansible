@@ -8,12 +8,6 @@
         lines:
           - switchport mode trunk
         parents: interface gi0/9
-        provider:
-          host: "{{ inventory_hostname }}"
-          username: "{{ ansible_user }}"
-          password: "{{ ansible_password }}"
-          authorize: yes
-          auth_pass: "{{ ansible_enable_password }}"
 
     - name: Configure access ports on VLAN 25
       ios_config:
@@ -31,20 +25,8 @@
           - gi0/7
           - gi0/8
         parents: "interface {{ item }}"
-        provider:
-          host: "{{ inventory_hostname }}"
-          username: "{{ ansible_user }}"
-          password: "{{ ansible_password }}"
-          authorize: yes
-          auth_pass: "{{ ansible_enable_password }}"
 
     - name: Save configuration
       ios_config:
         lines:
           - do write memory
-        provider:
-          host: "{{ inventory_hostname }}"
-          username: "{{ ansible_user }}"
-          password: "{{ ansible_password }}"
-          authorize: yes
-          auth_pass: "{{ ansible_enable_password }}"
